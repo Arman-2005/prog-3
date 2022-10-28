@@ -1,3 +1,5 @@
+var socket = io();
+
 function generator(matLen, gr, grEat, pr, tar, dg) {
     let matrix = [];
     for (let i = 0; i < matLen; i++) {
@@ -44,19 +46,7 @@ function generator(matLen, gr, grEat, pr, tar, dg) {
     return matrix;
 }
 
-let side = 20;
-
-let matrix = generator(15, 8, 10, 8, 3, 5);
-
-var grassArr = []
-var grassEaterArr = []
-var predaterArr = []
-var tarakanArr = []
-var dogArr = []
-function setup() {
-    frameRate(2);
-    createCanvas(matrix[0].length * side, matrix.length * side);
-    background('#acacac');
+function createMatrixObjects() {
     for (var y = 0; y < matrix.length; ++y) {
         for (var x = 0; x < matrix[y].length; ++x) {
             if (matrix[y][x] == 1) {
@@ -82,6 +72,37 @@ function setup() {
 
         }
     }
+}
+
+function keydown(evt) {
+    if (evt.key == "x") {
+        background('#acacac');
+        side = 20;
+        matrix = generator(15, 8, 10, 8, 3, 5);
+        grassArr = [];
+        grassEaterArr = []
+        predaterArr = []
+        tarakanArr = []
+        dogArr = []
+        createMatrixObjects()
+        
+    }
+}
+
+var side = 20;
+
+var matrix = generator(15, 8, 10, 8, 3, 5);
+
+var grassArr = []
+var grassEaterArr = []
+var predaterArr = []
+var tarakanArr = []
+var dogArr = []
+function setup() {
+    frameRate(2);
+    createCanvas(matrix[0].length * side, matrix.length * side);
+    background('#acacac');
+    createMatrixObjects()
 }
 function draw() {
 
@@ -131,4 +152,27 @@ function draw() {
         dogArr[i].mul();
         dogArr[i].eat()
     }
+
+    if (frameCount % 60 == 0) {
+        console.log(frameCount);
+        let grass = grassArr.length ;
+        let grassEater = grassEaterArr.length;
+        let predater = predaterArr.length;  
+        let dog = dogArr.length;
+        let tarakan = tarakanArr.length;
+        let statistic = {
+              grass,
+              grassEater,
+              predater,
+              dog,
+              tarakan
+        }
+          socket.emit("send data", statistic);
+          console.log("xot"+ grass + ","+ "xotaker"+ grass)
+      }
 }
+
+
+
+window.onkeydown = keydown;
+
