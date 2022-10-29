@@ -1,15 +1,25 @@
 {
   "name": "n",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
     "socket.io": "^4.5.3"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arman-2005/prog-3.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Arman-2005/prog-3/issues"
+  },
+  "homepage": "https://github.com/Arman-2005/prog-3#readme",
+  "description": ""
 }
