@@ -1,4 +1,4 @@
-
+var socket = io();
 
 function generator(matLen, gr, grEat, pr, tar, dg) {
     let matrix = [];
@@ -167,7 +167,7 @@ function draw() {
               dog,
               tarakan
         }
-          socket.emit("send data", statistic);
+          socket.emit("send static", statistic);
           console.log("xot"+ grass + ","+ "xotaker"+ grassEater)
       }
 }

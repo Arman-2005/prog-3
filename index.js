@@ -12,3 +12,18 @@ app.get('/', function (req, res) {
 });
 
 server.listen(3000);
+
+io.on('connection', function (socket) {
+   socket.on("send static", function (data) {
+      io.sockets.emit("display message", data);
+      console.log(data)
+      main(data)
+   });
+});
+
+var fs = require('fs');
+
+function main(statistic) {
+   const object = JSON.stringify(statistic)
+   fs.writeFileSync("index.json", object)
+}
